@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of faded teal wide-leg denim jeans with a raw hem">
+  <defs>
+    <pattern id="weave-denim" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#26292C" stroke-opacity="0.045" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="halftone-denim" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="6.5" cy="6.5" r="2.3" fill="#17A184" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <rect width="800" height="1000" fill="url(#weave-denim)"/>
+  <g transform="translate(60,60)"><rect width="180" height="180" fill="url(#halftone-denim)"/></g>
+
+  <g transform="translate(210,120)">
+    <!-- waistband -->
+    <rect x="10" y="0" width="360" height="60" rx="10" fill="#17A184"/>
+    <rect x="10" y="0" width="360" height="16" fill="#0D7C68"/>
+    <!-- legs -->
+    <path d="M10,52 L-30,760 L140,760 L165,220 L195,220 L220,760 L360,760 L340,52 Z" fill="#2DD4A7"/>
+    <!-- sun-fade panels -->
+    <path d="M10,52 L-30,760 L50,760 L78,90 Z" fill="#7EE8CC" opacity="0.6"/>
+    <path d="M340,52 L360,760 L300,760 L272,90 Z" fill="#7EE8CC" opacity="0.5"/>
+    <!-- side seams -->
+    <line x1="18" y1="80" x2="-18" y2="740" stroke="#F5821F" stroke-width="4" stroke-dasharray="10 8" opacity="0.85"/>
+    <line x1="332" y1="80" x2="352" y2="740" stroke="#F5821F" stroke-width="4" stroke-dasharray="10 8" opacity="0.85"/>
+    <!-- raw hem fray -->
+    <path d="M-30,760 l6,14 6,-10 6,12 6,-9 6,11 6,-8 6,10 6,-9 6,12 6,-10 6,13 6,-11 6,10 6,-8 6,12 6,-9 6,11 6,-8 6,10 6,-9 6,12" fill="none" stroke="#0D7C68" stroke-width="3" stroke-linecap="round"/>
+    <path d="M220,760 l6,14 6,-10 6,12 6,-9 6,11 6,-8 6,10 6,-9 6,12 6,-10 6,13 6,-11 6,10 6,-8 6,12 6,-9 6,11 6,-8 6,10 6,-9 6,12" fill="none" stroke="#0D7C68" stroke-width="3" stroke-linecap="round"/>
+    <!-- rivets + button -->
+    <circle cx="45" cy="30" r="7" fill="#F0A500"/>
+    <circle cx="325" cy="30" r="7" fill="#F0A500"/>
+    <rect x="170" y="14" width="30" height="30" rx="4" fill="#0D7C68"/>
+    <!-- pocket stitch -->
+    <path d="M40,70 L40,150 M330,70 L330,150" stroke="#26292C" stroke-width="2" stroke-dasharray="3 6" opacity="0.3"/>
+  </g>
+
+  <g transform="translate(668,880) rotate(-8)">
+    <path d="M0,0 L44,0 C50,0 54,4 54,10 L54,58 C54,64 50,68 44,68 L14,68 L0,44 Z" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <circle cx="27" cy="14" r="5" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <text x="27" y="46" font-family="'Space Mono', monospace" font-size="12" fill="#17A184" text-anchor="middle" font-weight="700">TH</text>
+  </g>
+
+  <g fill="#26292C" opacity="0.12">
+    <circle cx="700" cy="140" r="2"/>
+    <circle cx="90" cy="900" r="2"/>
+    <circle cx="620" cy="500" r="2"/>
+  </g>
+</svg>

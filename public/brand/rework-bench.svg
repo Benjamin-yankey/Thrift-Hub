@@ -1,0 +1,65 @@
+<svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a reworking bench with a needle, thread, scissors, and a jacket sleeve mid-repair">
+  <defs>
+    <pattern id="weave-bench" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#26292C" stroke-opacity="0.05" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="halftone-bench" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="6.5" cy="6.5" r="2.3" fill="#F5821F" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="720" height="720" fill="#EFE9DF"/>
+  <rect width="720" height="720" fill="url(#weave-bench)"/>
+  <g transform="translate(500,40)"><rect width="180" height="180" fill="url(#halftone-bench)"/></g>
+
+  <!-- bench surface -->
+  <rect x="0" y="520" width="720" height="200" fill="#3D4147"/>
+  <rect x="0" y="520" width="720" height="10" fill="#26292C"/>
+
+  <!-- jacket sleeve laid across the bench, mid-repair -->
+  <g transform="translate(80,340)">
+    <path d="M0,60 C10,20 60,0 180,4 C300,8 420,20 520,50 L560,110 C480,150 380,168 240,166 C130,164 40,146 -10,120 Z" fill="#F5821F"/>
+    <path d="M40,60 C110,36 200,26 300,30" stroke="#26292C" stroke-width="3" opacity="0.3" fill="none"/>
+    <!-- open seam being restitched -->
+    <path d="M180,40 L420,64" stroke="#26292C" stroke-width="2" stroke-dasharray="2 10" opacity="0.5"/>
+    <path d="M190,52 L210,42 M230,56 L250,46 M270,60 L290,50 M310,63 L330,53 M350,66 L370,56" stroke="#F0A500" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- needle and trailing thread -->
+  <g transform="translate(360,300) rotate(24)">
+    <line x1="0" y1="0" x2="150" y2="0" stroke="#F0A500" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="4" y2="0" stroke="#26292C" stroke-width="6"/>
+    <circle cx="150" cy="0" r="4" fill="none" stroke="#26292C" stroke-width="2"/>
+  </g>
+
+  <!-- spool of thread -->
+  <g transform="translate(560,420)">
+    <rect x="-30" y="-46" width="60" height="92" rx="10" fill="#17A184"/>
+    <ellipse cx="0" cy="-46" rx="30" ry="9" fill="#2DD4A7"/>
+    <ellipse cx="0" cy="46" rx="30" ry="9" fill="#0D7C68"/>
+    <path d="M-30,-30 C-8,-20 8,-40 30,-26" stroke="#0D7C68" stroke-width="3" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- scissors -->
+  <g transform="translate(140,470) rotate(-18)">
+    <path d="M0,0 L90,26" stroke="#3D4147" stroke-width="7" stroke-linecap="round"/>
+    <path d="M0,26 L90,0" stroke="#3D4147" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="10" cy="4" r="10" fill="none" stroke="#3D4147" stroke-width="6"/>
+    <circle cx="10" cy="22" r="10" fill="none" stroke="#3D4147" stroke-width="6"/>
+    <circle cx="10" cy="13" r="3.5" fill="#F0A500"/>
+  </g>
+
+  <!-- tape measure, coiled -->
+  <g transform="translate(560,600)">
+    <circle r="46" fill="#26292C"/>
+    <circle r="30" fill="#F7F5F0"/>
+    <path d="M-30,0 A30,30 0 0 1 30,0" stroke="#E8720F" stroke-width="4" fill="none"/>
+    <text x="0" y="6" font-family="'Space Mono', monospace" font-size="14" fill="#26292C" text-anchor="middle" font-weight="700">TH</text>
+  </g>
+
+  <g fill="#26292C" opacity="0.12">
+    <circle cx="60" cy="120" r="2"/>
+    <circle cx="640" cy="650" r="2"/>
+    <circle cx="360" cy="640" r="2"/>
+  </g>
+</svg>

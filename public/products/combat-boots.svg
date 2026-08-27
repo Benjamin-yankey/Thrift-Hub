@@ -1,0 +1,44 @@
+<svg viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of charcoal combat boots with a teal resoled sole and gold laces">
+  <defs>
+    <pattern id="weave-boot" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#26292C" stroke-opacity="0.045" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="halftone-boot" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="6.5" cy="6.5" r="2.3" fill="#F0A500" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <rect width="800" height="1000" fill="url(#weave-boot)"/>
+  <g transform="translate(80,700)"><rect width="170" height="170" fill="url(#halftone-boot)"/></g>
+
+  <g transform="translate(200,420)">
+    <path d="M0,140 L0,20 C0,8 10,0 24,0 L140,0 C154,0 164,10 164,24 L164,110 L260,150 C280,158 280,190 258,192 L10,192 C0,192 -6,180 0,166 Z" fill="#3D4147"/>
+    <rect x="0" y="150" width="258" height="42" rx="8" fill="#17A184"/>
+    <path d="M20,20 L140,20 M20,44 L140,44 M20,68 L140,68 M20,92 L140,92" stroke="#F0A500" stroke-width="3" opacity="0.8"/>
+    <circle cx="20" cy="20" r="4" fill="#26292C"/>
+    <circle cx="140" cy="20" r="4" fill="#26292C"/>
+    <circle cx="20" cy="44" r="4" fill="#26292C"/>
+    <circle cx="140" cy="44" r="4" fill="#26292C"/>
+    <circle cx="20" cy="68" r="4" fill="#26292C"/>
+    <circle cx="140" cy="68" r="4" fill="#26292C"/>
+  </g>
+
+  <g transform="translate(420,470) scale(0.9)">
+    <path d="M0,140 L0,20 C0,8 10,0 24,0 L140,0 C154,0 164,10 164,24 L164,110 L260,150 C280,158 280,190 258,192 L10,192 C0,192 -6,180 0,166 Z" fill="#4B5058"/>
+    <rect x="0" y="150" width="258" height="42" rx="8" fill="#0D7C68"/>
+    <path d="M20,20 L140,20 M20,44 L140,44 M20,68 L140,68 M20,92 L140,92" stroke="#F0A500" stroke-width="3" opacity="0.6"/>
+  </g>
+
+  <g transform="translate(660,420) rotate(-10)">
+    <path d="M0,0 L44,0 C50,0 54,4 54,10 L54,58 C54,64 50,68 44,68 L14,68 L0,44 Z" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <circle cx="27" cy="14" r="5" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <text x="27" y="46" font-family="'Space Mono', monospace" font-size="12" fill="#17A184" text-anchor="middle" font-weight="700">TH</text>
+  </g>
+
+  <g fill="#26292C" opacity="0.12">
+    <circle cx="90" cy="900" r="2"/>
+    <circle cx="700" cy="500" r="2"/>
+    <circle cx="120" cy="200" r="2"/>
+  </g>
+</svg>

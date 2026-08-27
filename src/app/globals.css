@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* -----------------------------------------------------------------------
+   Thrift Hup brand tokens
+   Exact hex values from thrift-hup-system.md — do not substitute.
+   Tailwind v4 reads @theme and generates utilities (bg-charcoal, text-tag,
+   font-display, etc.) automatically from these custom properties.
+------------------------------------------------------------------------ */
+:root {
+  /* brand palette */
+  --color-charcoal: #3d4147; /* badge / nav / footer background */
+  --color-ink: #26292c; /* wordmark + body text on light panels */
+  --color-orange-light: #ffb84d;
+  --color-orange: #f5821f; /* primary CTA */
+  --color-orange-outline: #e8720f;
+  --color-gold: #f0a500;
+  --color-teal-light: #2dd4a7;
+  --color-teal: #17a184;
+
+  /*
+   * The spec's saturated orange/teal are tuned to sit on button fills and
+   * badge chips (verified against ink/cloud text there). Used bare as text
+   * or icon color on the paper/cloud backgrounds, both fall below WCAG AA
+   * (~2.7-3.0:1). These two are the same hues deepened toward ink just
+   * enough to clear 4.5:1 (text) / 3:1 (large display type) on paper and
+   * cloud, for the handful of spots that need brand-colored text on a
+   * light background: headline accents, prices, and inline links.
+   */
+  --color-orange-deep: #c16c22;
+  --color-teal-deep: #1c7765;
+
+  /* neutrals built around the brand, not generic white/black */
+  --color-paper: #faf7f0; /* body background */
+  --color-paper-dim: #f1ebdd; /* recessed panels, card faces */
+  --color-paper-line: #e4dcc9; /* hairlines on paper */
+  --color-cloud: #f3f1ea;
+
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+}
+
+@theme inline {
+  --color-charcoal: var(--color-charcoal);
+  --color-ink: var(--color-ink);
+  --color-orange-light: var(--color-orange-light);
+  --color-orange: var(--color-orange);
+  --color-orange-outline: var(--color-orange-outline);
+  --color-gold: var(--color-gold);
+  --color-teal-light: var(--color-teal-light);
+  --color-teal: var(--color-teal);
+  --color-orange-deep: var(--color-orange-deep);
+  --color-teal-deep: var(--color-teal-deep);
+  --color-paper: var(--color-paper);
+  --color-paper-dim: var(--color-paper-dim);
+  --color-paper-line: var(--color-paper-line);
+  --color-cloud: var(--color-cloud);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-tag: var(--font-space-mono), ui-monospace, monospace;
+  --font-body: var(--font-work-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -----------------------------------------------------------------------
+   Signature shape system — the tag motif.
+   Buttons get a ticket/ferrule notch; product cards get a swing-tag
+   silhouette. These are the only two clip-paths used site-wide, so the
+   "shape language" stays deliberate instead of an ad-hoc mix.
+------------------------------------------------------------------------ */
+.clip-ticket {
+  clip-path: polygon(
+    0% 0%,
+    calc(100% - 16px) 0%,
+    100% 50%,
+    calc(100% - 16px) 100%,
+    0% 100%
+  );
+}
+
+.clip-tag {
+  clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 14% 100%, 0% 50%);
+}
+
+.punch-hole {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 9999px;
+  background: var(--color-paper);
+  border: 1.5px solid currentColor;
+}
+
+.stitch {
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0,
+    currentColor 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  height: 2px;
+}
+
+.stitch-v {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    currentColor 0,
+    currentColor 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  width: 2px;
+}
+
+/* -----------------------------------------------------------------------
+   Motion — a handful of named, purposeful moments (see Reveal.tsx and the
+   hero load-in). Respected under prefers-reduced-motion above.
+------------------------------------------------------------------------ */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes swing-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-8deg) translateY(-10px);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(3deg) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--tag-rotate, -2deg)) translateY(0);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--float-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--float-rotate, 0deg));
+  }
+}
+
+/*
+ * "See it worn" mannequin turn — a flat illustration, so this oscillates
+ * within a moderate rotateY range rather than spinning a full 360deg.
+ * Past ~35deg a flat 2D image would either show a mirrored flip or (with
+ * backface-visibility: hidden) go blank, since there's no separate back
+ * artwork — staying inside this range keeps the "turning to show it off"
+ * illusion convincing without ever exposing that seam.
+ */
+@keyframes mannequin-turn {
+  0%,
+  100% {
+    transform: rotateY(-24deg);
+  }
+  50% {
+    transform: rotateY(24deg);
+  }
+}
+
+.animate-rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-swing-in {
+  animation: swing-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-mannequin-turn {
+  animation: mannequin-turn 4.5s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* custom focus ring that reads as intentional, not the browser default */
+:focus-visible {
+  outline: 2.5px solid var(--color-teal);
+  outline-offset: 3px;
+}

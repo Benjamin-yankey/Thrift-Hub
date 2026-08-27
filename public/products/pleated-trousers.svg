@@ -1,0 +1,39 @@
+<svg viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of charcoal pleated trousers with a gold pinstripe">
+  <defs>
+    <pattern id="weave-trou" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#26292C" stroke-opacity="0.045" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="halftone-trou" width="13" height="13" patternUnits="userSpaceOnUse">
+      <circle cx="6.5" cy="6.5" r="2.3" fill="#F0A500" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <rect width="800" height="1000" fill="url(#weave-trou)"/>
+  <g transform="translate(100,700)"><rect width="170" height="170" fill="url(#halftone-trou)"/></g>
+
+  <g transform="translate(210,120)">
+    <rect x="10" y="0" width="360" height="56" rx="10" fill="#3D4147"/>
+    <path d="M10,48 L-10,780 L150,780 L180,260 L200,260 L230,780 L390,780 L340,48 Z" fill="#4B5058"/>
+    <line x1="90" y1="60" x2="90" y2="740" stroke="#26292C" stroke-width="2" opacity="0.35"/>
+    <line x1="270" y1="60" x2="270" y2="740" stroke="#26292C" stroke-width="2" opacity="0.35"/>
+    <line x1="20" y1="76" x2="0" y2="760" stroke="#F0A500" stroke-width="2.5" opacity="0.8"/>
+    <line x1="330" y1="76" x2="350" y2="760" stroke="#F0A500" stroke-width="2.5" opacity="0.8"/>
+    <rect x="60" y="-8" width="14" height="20" rx="3" fill="#26292C"/>
+    <rect x="316" y="-8" width="14" height="20" rx="3" fill="#26292C"/>
+    <rect x="188" y="-8" width="14" height="20" rx="3" fill="#26292C"/>
+    <line x1="80" y1="90" x2="60" y2="740" stroke="#17A184" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
+  </g>
+
+  <g transform="translate(668,120) rotate(-10)">
+    <path d="M0,0 L44,0 C50,0 54,4 54,10 L54,58 C54,64 50,68 44,68 L14,68 L0,44 Z" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <circle cx="27" cy="14" r="5" fill="#F7F5F0" stroke="#26292C" stroke-width="2.5"/>
+    <text x="27" y="46" font-family="'Space Mono', monospace" font-size="12" fill="#17A184" text-anchor="middle" font-weight="700">TH</text>
+  </g>
+
+  <g fill="#26292C" opacity="0.12">
+    <circle cx="90" cy="900" r="2"/>
+    <circle cx="700" cy="500" r="2"/>
+    <circle cx="120" cy="200" r="2"/>
+  </g>
+</svg>

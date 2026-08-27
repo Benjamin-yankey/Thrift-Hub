@@ -1,0 +1,83 @@
+<svg viewBox="0 0 1000 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrated flat-lay of a reworked varsity jacket, wide-leg denim, sneakers, and a hangtag on a textured surface">
+  <defs>
+    <pattern id="halftoneHero" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="2.6" fill="#F5821F" opacity="0.5"/>
+    </pattern>
+    <pattern id="weave" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#26292C" stroke-opacity="0.045" stroke-width="1.4"/>
+    </pattern>
+    <clipPath id="tornEdge">
+      <path d="M0,0 H1000 V90 L960,105 L920,80 L880,110 L840,78 L800,102 L760,84 L720,108 L680,86 L640,104 L600,82 L560,106 L520,88 L480,110 L440,84 L400,102 L360,80 L320,106 L280,86 L240,104 L200,82 L160,108 L120,84 L80,102 L40,86 L0,100 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1000" height="820" fill="#F7F5F0"/>
+  <rect width="1000" height="820" fill="url(#weave)"/>
+
+  <!-- torn-edge canvas backdrop -->
+  <g clip-path="url(#tornEdge)">
+    <rect width="1000" height="820" fill="#EFE9DF"/>
+  </g>
+
+  <!-- halftone burst, top right -->
+  <g transform="translate(760,60)">
+    <rect x="0" y="0" width="220" height="220" fill="url(#halftoneHero)"/>
+  </g>
+
+  <!-- Sneaker, back layer -->
+  <g transform="translate(60,560) rotate(-6)">
+    <path d="M0,90 C10,40 60,10 150,8 C210,6 250,30 270,55 L300,60 C320,62 330,75 320,92 L10,120 C-4,122 -6,100 0,90 Z" fill="#3D4147"/>
+    <path d="M10,92 L320,92 L320,104 C320,112 312,118 302,118 L20,118 C10,118 4,110 6,100 Z" fill="#26292C"/>
+    <path d="M40,60 C70,42 120,32 170,34" stroke="#FFB84D" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="90" cy="55" r="5" fill="#F0A500"/>
+    <circle cx="120" cy="48" r="5" fill="#F0A500"/>
+    <circle cx="150" cy="45" r="5" fill="#F0A500"/>
+  </g>
+
+  <!-- Wide-leg denim -->
+  <g transform="translate(430,90)">
+    <rect x="20" y="0" width="230" height="70" rx="10" fill="#17A184"/>
+    <path d="M20,60 L0,560 L110,560 L125,120 L135,120 L155,560 L262,560 L242,60 Z" fill="#2DD4A7"/>
+    <path d="M20,60 L0,560 L36,560 L54,90 Z" fill="#17A184" opacity="0.55"/>
+    <path d="M242,60 L262,560 L226,560 L208,90 Z" fill="#17A184" opacity="0.55"/>
+    <line x1="30" y1="90" x2="16" y2="540" stroke="#F5821F" stroke-width="4" stroke-dasharray="10 8" opacity="0.85"/>
+    <line x1="232" y1="90" x2="246" y2="540" stroke="#F5821F" stroke-width="4" stroke-dasharray="10 8" opacity="0.85"/>
+    <circle cx="60" cy="24" r="7" fill="#F0A500"/>
+    <circle cx="210" cy="24" r="7" fill="#F0A500"/>
+    <rect x="120" y="10" width="30" height="30" rx="4" fill="#0D7C68"/>
+  </g>
+
+  <!-- Varsity jacket, front layer, overlapping -->
+  <g transform="translate(260,240) rotate(-3)">
+    <path d="M120,0 L280,0 C300,0 320,14 330,34 L400,90 L370,150 L330,120 L330,470 C330,486 316,500 300,500 L100,500 C84,500 70,486 70,470 L70,120 L30,150 L0,90 L70,34 C80,14 100,0 120,0 Z" fill="#3D4147"/>
+    <path d="M120,0 L280,0 C300,0 320,14 330,34 L340,52 L60,52 L70,34 C80,14 100,0 120,0 Z" fill="#F5821F"/>
+    <rect x="70" y="120" width="260" height="26" fill="#F5821F"/>
+    <rect x="70" y="474" width="260" height="26" rx="6" fill="#17A184"/>
+    <rect x="0" y="86" width="34" height="70" rx="10" fill="#17A184"/>
+    <rect x="366" y="86" width="34" height="70" rx="10" fill="#17A184"/>
+    <line x1="200" y1="52" x2="200" y2="474" stroke="#26292C" stroke-width="3" opacity="0.4"/>
+    <circle cx="200" cy="230" r="46" fill="#FFB84D"/>
+    <circle cx="200" cy="230" r="46" fill="none" stroke="#26292C" stroke-width="3"/>
+    <path d="M200,196 L212,222 L240,222 L217,238 L226,264 L200,248 L174,264 L183,238 L160,222 L188,222 Z" fill="#E8720F"/>
+    <path d="M70,290 h260" stroke="#26292C" stroke-width="2" stroke-dasharray="3 6" opacity="0.35"/>
+    <path d="M70,240 L60,236" stroke="#F0A500" stroke-width="3" opacity="0" />
+  </g>
+
+  <!-- hangtag, swinging, signature motif -->
+  <g transform="translate(560,190) rotate(14)">
+    <line x1="34" y1="0" x2="18" y2="-46" stroke="#26292C" stroke-width="2.5"/>
+    <path d="M0,0 L48,0 C58,0 66,7 66,16 L66,80 C66,89 58,96 48,96 L18,96 L0,60 Z" fill="#F7F5F0" stroke="#26292C" stroke-width="3"/>
+    <circle cx="34" cy="16" r="6" fill="#F7F5F0" stroke="#26292C" stroke-width="3"/>
+    <text x="34" y="58" font-family="'Space Mono', monospace" font-size="15" fill="#26292C" text-anchor="middle" font-weight="700">NEW</text>
+    <text x="34" y="76" font-family="'Space Mono', monospace" font-size="15" fill="#F5821F" text-anchor="middle" font-weight="700">DROP</text>
+  </g>
+
+  <!-- grain dots scattered -->
+  <g fill="#26292C" opacity="0.12">
+    <circle cx="120" cy="120" r="2"/>
+    <circle cx="640" cy="470" r="2"/>
+    <circle cx="820" cy="620" r="2"/>
+    <circle cx="480" cy="640" r="2"/>
+    <circle cx="70" cy="380" r="2"/>
+  </g>
+</svg>
