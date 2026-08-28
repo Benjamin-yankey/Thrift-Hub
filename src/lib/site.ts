@@ -1,19 +1,21 @@
 /**
  * Shared brand + contact constants.
  *
- * Email and Instagram are still placeholders (see thrift-hup-system.md,
- * section 6) — swap them for the real values when available. WhatsApp is
- * the real number. Every component below reads from here rather than
- * hardcoding a number, so updating any of these is a one-line change.
+ * Instagram is still a placeholder (see thrift-hup-system.md, section 6) —
+ * swap it for the real handle when available. Every component below reads
+ * from here rather than hardcoding a number, so updating any of these is a
+ * one-line change.
  */
 
 export const SITE = {
   name: "Thrift Hub",
-  whatsappNumber: "233240061132", // real Ghana number, wa.me format (no +, no spaces)
-  whatsappDisplay: "+233 24 006 1132",
-  email: "hello@thrifthub.com",
+  whatsappNumber: "233241117911", // real Ghana number, wa.me format (no +, no spaces)
+  whatsappDisplay: "+233 24 111 7911",
+  email: "thethrifthubshop@gmail.com",
   instagramHandle: "@thrifthub",
   instagramUrl: "https://instagram.com/thrifthub",
+  tiktokHandle: "@1thrift_hub",
+  tiktokUrl: "https://www.tiktok.com/@1thrift_hub",
 };
 
 /**

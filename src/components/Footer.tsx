@@ -4,7 +4,7 @@ import {
   SITE,
   buildWhatsAppLink,
 } from "@/lib/site";
-import { WhatsAppIcon, InstagramIcon, MailIcon } from "./icons";
+import { WhatsAppIcon, InstagramIcon, TikTokIcon, MailIcon } from "./icons";
 
 const LINKS = [
   { label: "Home", href: "/" },
@@ -95,6 +95,17 @@ export default function Footer() {
                 >
                   <InstagramIcon className="h-4 w-4 text-teal-light" />
                   {SITE.instagramHandle}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 font-body text-sm text-cloud/80 transition-colors hover:text-orange-light"
+                >
+                  <TikTokIcon className="h-4 w-4 text-teal-light" />
+                  {SITE.tiktokHandle}
                 </a>
               </li>
             </ul>
