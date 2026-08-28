@@ -20,10 +20,10 @@ export default function Hero() {
   const allowMotion = useSyncExternalStore(
     subscribe,
     getSnapshot,
-    getServerSnapshot
+    getServerSnapshot,
   );
   const whatsappHref = buildWhatsAppLink(
-    "Hi! I'd like to know more about the current Thrift Hub drop."
+    "Hi! I'd like to know more about the current Thrift Hub drop.",
   );
 
   return (
@@ -48,25 +48,26 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-[1800px] px-5 sm:px-8">
         <div className="max-w-2xl">
           <p className="animate-rise-in clip-ticket inline-block bg-orange px-4 py-2 font-tag text-[12px] font-bold uppercase tracking-[0.15em] text-ink">
-            Accra-sourced, one rack at a time
+            Where Fashion meets affordability.
           </p>
 
           <h1
             className="animate-rise-in mt-4 font-display text-[clamp(2.75rem,11vw,4rem)] leading-[0.92] tracking-tight text-cloud sm:text-6xl lg:text-[5.2rem]"
             style={{ animationDelay: "80ms" }}
           >
-            Secondhand.
+            First Selection
             <br />
-            <span className="text-orange-light">First pick.</span>
+            <span className="text-orange-light">Thrift.</span>
           </h1>
 
           <p
             className="animate-rise-in mt-6 max-w-md font-body text-base leading-relaxed text-cloud/80 sm:text-lg"
             style={{ animationDelay: "160ms" }}
           >
-            We rework what Kantamanto has already worn in. Every drop is
-            small, every piece is one of one, and once it&apos;s gone,
-            it&apos;s actually gone.
+            Our thrift clothing store offers stylish, affordable, and
+            high-quality fashion for everyone. We carefully select unique
+            pre-loved clothing that allows customers to express their personal
+            style while saving money.
           </p>
 
           <div

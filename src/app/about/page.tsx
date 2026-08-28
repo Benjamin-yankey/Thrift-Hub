@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const whatsappHref = buildWhatsAppLink(
-    "Hi! I'd like to know more about Thrift Hub."
+    "Hi! I'd like to know more about Thrift Hub.",
   );
 
   return (
@@ -41,14 +41,15 @@ export default function AboutPage() {
               <h1 className="mt-4 font-display text-[clamp(2.5rem,9vw,4rem)] leading-[0.95] text-ink">
                 We don&apos;t make clothes.
                 <br />
-                <span className="text-orange-deep">We give them a second life.</span>
+                <span className="text-orange-deep">
+                  We give them a second life.
+                </span>
               </h1>
               <p className="mt-6 max-w-xl font-body text-lg leading-relaxed text-ink/75">
-                Thrift Hub started in a Kumasi bedroom with a needle, a pile
-                of secondhand clothes, and a stubborn refusal to throw
-                anything away that could still be worn. It&apos;s grown into
-                a small operation shipping reworked pieces out of Accra —
-                but the bedroom-brand instincts never left.
+                Our thrift clothing store offers stylish, affordable, and
+                high-quality fashion for everyone. We carefully select unique
+                pre-loved clothing that allows customers to express their
+                personal style while saving money.
               </p>
             </Reveal>
           </div>
@@ -78,23 +79,21 @@ export default function AboutPage() {
                 Where it starts
               </p>
               <h2 className="mt-2 font-display text-4xl leading-[0.95] text-ink sm:text-5xl">
-                Kantamanto, one bale at a time.
+                One bale at a time.
               </h2>
               <div className="mt-6 space-y-4 font-body text-base leading-relaxed text-ink/75 sm:text-lg">
                 <p>
-                  Kantamanto Market in Accra moves more secondhand clothing
-                  in a week than most warehouses see in a year — bales
-                  arrive sealed, and nobody knows exactly what&apos;s inside
-                  until they&apos;re cut open. We go in person, dig through
-                  bale after bale by hand, and pull out the pieces worth
-                  saving: the ones with good bones, real fabric, and a
-                  little damage we know how to fix.
+                  The market we source from moves more secondhand clothing in a
+                  week than most warehouses see in a year — bales arrive sealed,
+                  and nobody knows exactly what&apos;s inside until they&apos;re
+                  cut open. We go in person, dig through bale after bale by
+                  hand, and pull out the pieces worth saving: the ones with good
+                  bones, real fabric, and a little damage we know how to fix.
                 </p>
                 <p>
-                  Most of what we find never makes a drop. What does has
-                  already survived one life somewhere else — someone
-                  else&apos;s closet, someone else&apos;s decade — before it
-                  ever reaches our bench.
+                  Most of what we find never makes a drop. What does has already
+                  survived one life somewhere else — someone else&apos;s closet,
+                  someone else&apos;s decade — before it ever reaches our bench.
                 </p>
               </div>
             </Reveal>
@@ -113,23 +112,18 @@ export default function AboutPage() {
               </h2>
               <div className="mt-6 space-y-4 font-body text-base leading-relaxed text-ink/75 sm:text-lg">
                 <p>
-                  Every piece lands on our bench before it ever reaches a
-                  rack. We shorten what runs long, patch what&apos;s torn on
-                  purpose, chain-stitch what needed reinforcing, and re-lace
-                  what needed it. Nothing here was made for us — we just
-                  make it wearable again, on our own terms.
+                  Every piece reaches you exactly as we found it. Nothing
+                  added, nothing changed — no needle, no patch, no shortcut.
+                  If it made the cut, it was already right.
                 </p>
                 <p>
-                  We&apos;re not trying to hide where a piece came from.
-                  The patch stays visible. The fade stays true to whoever
-                  wore it before. That&apos;s the point — not vintage,
-                  not new, just already lived-in, and better for it.
+                  We&apos;re not hiding where a piece has been, and we&apos;re
+                  not touching it either. The fade stays true to whoever wore
+                  it before. That&apos;s the whole point — not new, not
+                  altered, just already perfect, exactly as it came to us.
                 </p>
               </div>
               <div className="stitch mt-8 text-ink/15" aria-hidden="true" />
-              <p className="mt-6 font-tag text-xs font-bold uppercase tracking-[0.15em] text-ink/65">
-                Est. in a Kumasi bedroom, now shipping from Accra.
-              </p>
             </Reveal>
 
             <Reveal delay={100}>
@@ -150,7 +144,10 @@ export default function AboutPage() {
         </section>
 
         {/* Why small drops */}
-        <section id="small-drops" className="bg-charcoal py-20 text-cloud sm:py-24">
+        <section
+          id="small-drops"
+          className="bg-charcoal py-20 text-cloud sm:py-24"
+        >
           <Reveal className="mx-auto max-w-3xl px-5 text-center sm:px-8">
             <p className="font-tag text-xs font-bold uppercase tracking-[0.15em] text-teal-light">
               Why drops, not a warehouse
@@ -159,13 +156,12 @@ export default function AboutPage() {
               Small on purpose. Gone on purpose.
             </h2>
             <p className="mx-auto mt-5 max-w-xl font-body text-base leading-relaxed text-cloud/75 sm:text-lg">
-              We could scale up, source more, patch faster. We&apos;d rather
+              We could scale up, source more, move faster. We&apos;d rather
               keep drops small and sizing one piece deep, because that&apos;s
               what makes each find worth finding. When a piece sells, we
-              don&apos;t restock the exact same jacket — we&apos;re out
-              looking for the next one. That&apos;s the whole model: no
-              cart, no warehouse, just us, a bench, and whatever Kantamanto
-              hands us next.
+              don&apos;t restock the exact same jacket — we&apos;re out looking
+              for the next one. That&apos;s the whole model: no cart, no
+              warehouse, just us and whatever the next bale hands us.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
               <Link
