@@ -19,33 +19,33 @@ export default async function AdminDashboardLayout({
 
   return (
     <div className="min-h-screen bg-paper">
-      <header className="flex flex-wrap items-center justify-between gap-3 bg-charcoal px-5 py-4 sm:px-8">
-        <div className="flex items-center gap-6">
+      <header className="flex flex-col gap-3 bg-charcoal px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <Link
             href="/admin"
-            className="font-tag text-sm font-bold uppercase tracking-[0.15em] text-orange-light"
+            className="whitespace-nowrap font-tag text-sm font-bold uppercase tracking-[0.15em] text-orange-light"
           >
             Thrift Hub Admin
           </Link>
           <Link
             href="/admin/products/new"
-            className="text-sm font-medium text-cloud/80 hover:text-cloud"
+            className="whitespace-nowrap text-sm font-medium text-cloud/80 hover:text-cloud"
           >
             Add product
           </Link>
           <Link
             href="/admin/messages"
-            className="text-sm font-medium text-cloud/80 hover:text-cloud"
+            className="whitespace-nowrap text-sm font-medium text-cloud/80 hover:text-cloud"
           >
             Messages
           </Link>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-cloud/60">{user.email}</span>
+        <div className="flex items-center justify-between gap-4 sm:justify-end">
+          <span className="truncate text-sm text-cloud/60">{user.email}</span>
           <form action={logout}>
             <button
               type="submit"
-              className="rounded-md border border-cloud/30 px-3 py-1.5 text-sm text-cloud hover:bg-cloud/10"
+              className="shrink-0 rounded-md border border-cloud/30 px-3 py-1.5 text-sm text-cloud hover:bg-cloud/10"
             >
               Log out
             </button>

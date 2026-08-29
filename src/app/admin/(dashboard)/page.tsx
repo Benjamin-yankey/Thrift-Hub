@@ -53,7 +53,11 @@ export default async function AdminProductsPage() {
           No products yet. Add your first one.
         </p>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-lg border border-paper-line bg-white">
+        <>
+        <p className="mt-6 text-xs text-ink/50 sm:hidden">
+          Swipe the table sideways to see more columns →
+        </p>
+        <div className="mt-2 overflow-x-auto rounded-lg border border-paper-line bg-white sm:mt-6">
           <table className="w-full min-w-[860px] text-left text-sm">
             <thead>
               <tr className="border-b border-paper-line text-xs uppercase tracking-wide text-ink/50">
@@ -172,6 +176,7 @@ export default async function AdminProductsPage() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </div>
   );
