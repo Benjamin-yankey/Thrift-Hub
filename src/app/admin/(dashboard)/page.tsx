@@ -54,10 +54,110 @@ export default async function AdminProductsPage() {
         </p>
       ) : (
         <>
-        <p className="mt-6 text-xs text-ink/50 sm:hidden">
-          Swipe the table sideways to see more columns →
-        </p>
-        <div className="mt-2 overflow-x-auto rounded-lg border border-paper-line bg-white sm:mt-6">
+        {/* Mobile: one card per product, everything stacked — no sideways scrolling. */}
+        <div className="mt-6 flex flex-col gap-3 sm:hidden">
+          {products.map((product, index) => (
+            <div
+              key={product.id}
+              className="rounded-lg border border-paper-line bg-white p-4"
+            >
+              <div className="flex items-center gap-3">
+                <div className="relative h-14 w-14 flex-none overflow-hidden rounded bg-cloud">
+                  {product.images[0] ? (
+                    <Image
+                      src={product.images[0]}
+                      alt=""
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-ink">
+                    {product.name}
+                  </p>
+                  <p className="truncate text-xs text-ink/40">
+                    {product.slug}
+                  </p>
+                  <p className="mt-0.5 text-xs text-ink/60">
+                    {product.category} · {product.currency} {product.price}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span
+                  className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_BADGE[product.status]}`}
+                >
+                  {STATUS_LABEL[product.status]}
+                </span>
+                <form
+                  action={setFeatured.bind(
+                    null,
+                    product.id,
+                    !product.featured
+                  )}
+                >
+                  <button
+                    type="submit"
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium ${
+                      product.featured
+                        ? "bg-teal text-ink"
+                        : "bg-paper-dim text-ink/50"
+                    }`}
+                  >
+                    {product.featured ? "Featured" : "Not featured"}
+                  </button>
+                </form>
+              </div>
+
+              <div className="mt-3 flex items-center justify-between border-t border-paper-line pt-3">
+                <div className="flex items-center gap-1">
+                  <form action={moveProduct.bind(null, product.id, "up")}>
+                    <button
+                      type="submit"
+                      disabled={index === 0}
+                      aria-label="Move up"
+                      className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
+                    >
+                      ↑
+                    </button>
+                  </form>
+                  <form action={moveProduct.bind(null, product.id, "down")}>
+                    <button
+                      type="submit"
+                      disabled={index === products.length - 1}
+                      aria-label="Move down"
+                      className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
+                    >
+                      ↓
+                    </button>
+                  </form>
+                  <span className="ml-1 text-xs text-ink/40">
+                    {product.sort_order}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={`/admin/products/${product.id}/edit`}
+                    className="text-sm text-orange-deep hover:underline"
+                  >
+                    Edit
+                  </Link>
+                  <DeleteProductButton
+                    id={product.id}
+                    name={product.name}
+                    action={deleteProduct}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop/tablet: the full table. */}
+        <div className="mt-6 hidden overflow-x-auto rounded-lg border border-paper-line bg-white sm:block">
           <table className="w-full min-w-[860px] text-left text-sm">
             <thead>
               <tr className="border-b border-paper-line text-xs uppercase tracking-wide text-ink/50">
