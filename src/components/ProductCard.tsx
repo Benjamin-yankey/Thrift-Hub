@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import {
   buildWhatsAppLink,
@@ -5,7 +8,15 @@ import {
   STATUS_LABEL,
   type Product,
 } from "@/lib/site";
+import { shareProductToWhatsApp } from "@/lib/shareProduct";
+import { useWhatsAppShareMode } from "@/lib/useWhatsAppShareMode";
 import { PlayIcon, WhatsAppIcon } from "./icons";
+
+const SHARE_MODE_HINT: Record<"share" | "clipboard", string> = {
+  share: "Opens WhatsApp with this photo and message ready to send.",
+  clipboard:
+    "Copies this photo + opens WhatsApp with your message — paste the photo in to send it.",
+};
 
 // Text color per chip is picked for AA contrast against that fill, not
 // for uniformity — orange/orange-outline read too light for white text at
@@ -30,12 +41,26 @@ export default function ProductCard({
   featured?: boolean;
 }) {
   const soldOut = product.status === "sold-out";
-  const whatsappHref = buildWhatsAppLink(
-    `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`
-  );
+  const whatsappMessage = `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`;
+  const whatsappHref = buildWhatsAppLink(whatsappMessage);
   const showVideoInCard = Boolean(
     product.videoUrl && hasOnlyPlaceholderPhoto(product)
   );
+  const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const shareMode = useWhatsAppShareMode();
+  const hasRealPhoto = !hasOnlyPlaceholderPhoto(product);
+
+  async function handleOrderClick() {
+    const result = await shareProductToWhatsApp({
+      text: whatsappMessage,
+      whatsappHref,
+      imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
+    });
+    if (result.imageCopiedToClipboard) {
+      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
+      setTimeout(() => setCaptionNote(null), 6000);
+    }
+  }
 
   return (
     <article
@@ -111,15 +136,23 @@ export default function ProductCard({
           </p>
         ) : null}
 
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={handleOrderClick}
           className="mt-auto inline-flex items-center gap-2 pt-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep"
         >
           <WhatsAppIcon className="h-4 w-4 text-teal-deep" />
           {soldOut ? "Ask about a restock" : "Ask on WhatsApp"}
-        </a>
+        </button>
+        {captionNote ? (
+          <p role="status" className="font-body text-xs text-ink/50">
+            {captionNote}
+          </p>
+        ) : shareMode && hasRealPhoto ? (
+          <p className="font-body text-xs text-ink/40">
+            {SHARE_MODE_HINT[shareMode]}
+          </p>
+        ) : null}
       </div>
     </article>
   );

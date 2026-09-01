@@ -29,6 +29,7 @@ export default function Hero() {
   return (
     <section
       id="top"
+      data-tour="hero"
       className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-charcoal py-20 sm:min-h-[680px] lg:min-h-[760px]"
     >
       {allowMotion ? (

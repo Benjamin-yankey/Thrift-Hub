@@ -110,7 +110,10 @@ export default function ShopGrid({ products }: { products: Product[] }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-5 border-b border-paper-line pb-8">
+      <div
+        data-tour="shop-filters"
+        className="flex flex-col gap-5 border-b border-paper-line pb-8"
+      >
         <div className="flex flex-col gap-1.5 sm:max-w-sm">
           <label
             htmlFor="search"
@@ -236,7 +239,10 @@ export default function ShopGrid({ products }: { products: Product[] }) {
           ) : null}
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          data-tour="shop-grid"
+          className="mt-6 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {filtered.map((product, i) => (
             <Reveal key={product.id} delay={Math.min(i, 5) * 70}>
               <ShopProductCard product={product} />

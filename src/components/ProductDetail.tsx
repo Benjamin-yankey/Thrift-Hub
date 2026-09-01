@@ -10,7 +10,16 @@ import {
   STATUS_LABEL,
   type Product,
 } from "@/lib/site";
+import { shareProductToWhatsApp } from "@/lib/shareProduct";
+import { useWhatsAppShareMode } from "@/lib/useWhatsAppShareMode";
 import { PlayIcon, WhatsAppIcon } from "./icons";
+
+const SHARE_MODE_HINT: Record<"share" | "clipboard", string> = {
+  share:
+    "Tap to open WhatsApp with this photo and message ready to send.",
+  clipboard:
+    "We'll copy this photo to your clipboard and open WhatsApp with the message ready — paste the photo in (Ctrl+V / Cmd+V) to send it along.",
+};
 import WornMannequin, { wornCaptionForCategory } from "./WornMannequin";
 
 // Same standalone Markdown renderer that powers the admin editor's preview
@@ -70,6 +79,8 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "");
   const tiltRef = useRef<HTMLDivElement>(null);
   const [tiltTransform, setTiltTransform] = useState(TILT_RESET);
+  const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const shareMode = useWhatsAppShareMode();
 
   function handleTiltMove(e: React.PointerEvent<HTMLDivElement>) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -86,15 +97,33 @@ export default function ProductDetail({ product }: { product: Product }) {
   const unorderable =
     product.status === "sold-out" || product.status === "coming-soon";
 
-  const whatsappHref = unorderable
-    ? buildWhatsAppLink(
-        product.status === "sold-out"
-          ? `Hi! I'm interested in a restock of the ${product.name}. Can you let me know if it comes back?`
-          : `Hi! I'd like to be notified when the ${product.name} drops. Can you keep me posted?`
-      )
-    : buildWhatsAppLink(
-        `Hi, I'm interested in ${product.name}, size ${selectedSize}.`
-      );
+  const whatsappMessage = unorderable
+    ? product.status === "sold-out"
+      ? `Hi! I'm interested in a restock of the ${product.name}. Can you let me know if it comes back?`
+      : `Hi! I'd like to be notified when the ${product.name} drops. Can you keep me posted?`
+    : `Hi, I'm interested in ${product.name}, size ${selectedSize}.`;
+  const whatsappHref = buildWhatsAppLink(whatsappMessage);
+
+  // Share whichever photo is currently on screen (falls back to the cover
+  // photo for the video-slide case) — skipped entirely for a product that
+  // only has the synthetic "photo coming soon" placeholder.
+  const shareImageUrl = hasOnlyPlaceholderPhoto(product)
+    ? null
+    : activeMedia.type === "image"
+      ? activeMedia.src
+      : product.images[0];
+
+  async function handleOrderClick() {
+    const result = await shareProductToWhatsApp({
+      text: whatsappMessage,
+      whatsappHref,
+      imageUrl: shareImageUrl,
+    });
+    if (result.imageCopiedToClipboard) {
+      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
+      setTimeout(() => setCaptionNote(null), 6000);
+    }
+  }
 
   return (
     <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-16">
@@ -273,10 +302,9 @@ export default function ProductDetail({ product }: { product: Product }) {
           </p>
         ) : null}
 
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={handleOrderClick}
           className="clip-ticket mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-orange-light to-orange px-7 py-3.5 font-tag text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:-translate-y-0.5"
         >
           <WhatsAppIcon className="h-4 w-4" />
@@ -285,7 +313,16 @@ export default function ProductDetail({ product }: { product: Product }) {
             : product.status === "coming-soon"
               ? "Ask to be notified"
               : "Order via WhatsApp"}
-        </a>
+        </button>
+        {captionNote ? (
+          <p role="status" className="mt-2 font-body text-xs text-ink/60">
+            {captionNote}
+          </p>
+        ) : shareMode && shareImageUrl ? (
+          <p className="mt-2 font-body text-xs text-ink/50">
+            {SHARE_MODE_HINT[shareMode]}
+          </p>
+        ) : null}
       </div>
     </div>
   );
