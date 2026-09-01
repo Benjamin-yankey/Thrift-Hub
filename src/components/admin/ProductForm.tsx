@@ -1,12 +1,15 @@
 "use client";
 
 import "@uiw/react-md-editor/markdown-editor.css";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { ProductRow } from "@/lib/products";
 import type { ProductStatus } from "@/lib/site";
 import { CATEGORIES, STATUS_LABEL } from "@/lib/site";
+import type { ProductFormState } from "@/app/admin/actions";
+
+const INITIAL_STATE: ProductFormState = { status: "idle", message: "" };
 
 // MDEditor touches `document` on import, so it can only render on the
 // client — this file is already "use client", which is required for
@@ -36,8 +39,12 @@ export default function ProductForm({
   action,
 }: {
   product?: ProductRow;
-  action: (formData: FormData) => void | Promise<void>;
+  action: (
+    prevState: ProductFormState,
+    formData: FormData
+  ) => Promise<ProductFormState>;
 }) {
+  const [state, formAction, pending] = useActionState(action, INITIAL_STATE);
   const [name, setName] = useState(product?.name ?? "");
   const [slug, setSlug] = useState(product?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(product));
@@ -146,7 +153,7 @@ export default function ProductForm({
   }
 
   return (
-    <form action={action} className="flex flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="name" className="text-sm font-medium text-ink">
@@ -472,13 +479,26 @@ export default function ProductForm({
         </div>
       </div>
 
+      {state.status === "error" ? (
+        <p
+          role="alert"
+          className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700"
+        >
+          {state.message}
+        </p>
+      ) : null}
+
       <div className="flex items-center gap-3 pt-2">
         <button
           type="submit"
-          disabled={uploading || videoUploading}
+          disabled={pending || uploading || videoUploading}
           className="rounded-md bg-orange-deep px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50"
         >
-          {product ? "Save changes" : "Add product"}
+          {pending
+            ? "Saving…"
+            : product
+              ? "Save changes"
+              : "Add product"}
         </button>
       </div>
     </form>

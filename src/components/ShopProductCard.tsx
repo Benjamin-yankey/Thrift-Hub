@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -6,7 +9,15 @@ import {
   STATUS_LABEL,
   type Product,
 } from "@/lib/site";
+import { shareProductToWhatsApp } from "@/lib/shareProduct";
+import { useWhatsAppShareMode } from "@/lib/useWhatsAppShareMode";
 import { PlayIcon, WhatsAppIcon } from "./icons";
+
+const SHARE_MODE_HINT: Record<"share" | "clipboard", string> = {
+  share: "Opens WhatsApp with this photo and message ready to send.",
+  clipboard:
+    "Copies this photo + opens WhatsApp with your message — paste the photo in to send it.",
+};
 
 // Same tone map as ProductCard — kept in sync deliberately rather than
 // imported, since ProductCard doesn't export it.
@@ -26,9 +37,23 @@ const STATUS_TONE: Record<Product["status"], string> = {
  */
 export default function ShopProductCard({ product }: { product: Product }) {
   const soldOut = product.status === "sold-out";
-  const whatsappHref = buildWhatsAppLink(
-    `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`
-  );
+  const whatsappMessage = `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`;
+  const whatsappHref = buildWhatsAppLink(whatsappMessage);
+  const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const shareMode = useWhatsAppShareMode();
+  const hasRealPhoto = !hasOnlyPlaceholderPhoto(product);
+
+  async function handleOrderClick() {
+    const result = await shareProductToWhatsApp({
+      text: whatsappMessage,
+      whatsappHref,
+      imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
+    });
+    if (result.imageCopiedToClipboard) {
+      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
+      setTimeout(() => setCaptionNote(null), 6000);
+    }
+  }
   // A video-only product (no real photos) plays its clip right in the
   // grid instead of a "photo coming soon" graphic — with real photos,
   // the card still shows the cover photo and the play badge below just
@@ -107,15 +132,23 @@ export default function ShopProductCard({ product }: { product: Product }) {
       </Link>
 
       <div className="px-5 pb-5">
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={handleOrderClick}
           className="inline-flex items-center gap-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep"
         >
           <WhatsAppIcon className="h-4 w-4 text-teal-deep" />
           {soldOut ? "Ask about a restock" : "Ask on WhatsApp"}
-        </a>
+        </button>
+        {captionNote ? (
+          <p role="status" className="mt-1 font-body text-xs text-ink/50">
+            {captionNote}
+          </p>
+        ) : shareMode && hasRealPhoto ? (
+          <p className="mt-1 font-body text-xs text-ink/40">
+            {SHARE_MODE_HINT[shareMode]}
+          </p>
+        ) : null}
       </div>
     </article>
   );
