@@ -4,10 +4,9 @@ import {
   SITE,
   buildWhatsAppLink,
 } from "@/lib/site";
-import { WhatsAppIcon, InstagramIcon, TikTokIcon, MailIcon } from "./icons";
+import { WhatsAppIcon, TikTokIcon, MailIcon } from "./icons";
 
 const LINKS = [
-  { label: "Home", href: "/" },
   { label: "Shop", href: "/shop" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -23,7 +22,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1800px] px-5 py-16 sm:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-3">
+            <Link href="/" className="flex w-fit items-center gap-3">
               <Image
                 src="/brand/logo-badge-large.png"
                 alt="Thrift Hub badge mark"
@@ -37,7 +36,7 @@ export default function Footer() {
                 </span>
                 <span className="mt-1 h-[3px] w-full bg-teal" aria-hidden="true" />
               </span>
-            </div>
+            </Link>
             <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-cloud/70">
               A curated drop of reworked secondhand clothing. Look, feel,
               and message us before it&apos;s gone.
@@ -88,17 +87,6 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={SITE.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 font-body text-sm text-cloud/80 transition-colors hover:text-orange-light"
-                >
-                  <InstagramIcon className="h-4 w-4 text-teal-light" />
-                  {SITE.instagramHandle}
-                </a>
-              </li>
-              <li>
-                <a
                   href={SITE.tiktokUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -111,6 +99,10 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        <p className="mt-12 border-t border-cloud/10 pt-6 font-body text-xs text-cloud/50">
+          © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

@@ -12,7 +12,7 @@ export default async function FeaturedDrops() {
   const [feature, ...rest] = products;
 
   return (
-    <section id="drops" className="bg-paper py-20 sm:py-28">
+    <section id="drops" data-tour="featured-drops" className="bg-paper py-20 sm:py-28">
       <div className="mx-auto max-w-[1800px] px-5 sm:px-8">
         <Reveal className="max-w-xl">
           <p className="clip-ticket inline-block bg-charcoal px-4 py-2 font-tag text-[12px] font-bold uppercase tracking-[0.15em] text-teal-light">

@@ -26,13 +26,13 @@ export default function CatalogCta() {
           it&apos;s the only one.
         </h2>
         <p className="mx-auto mt-5 max-w-lg font-body text-base leading-relaxed text-cloud/70 sm:text-lg">
-          The full catalog, with filters by category, size, and price, is
-          the next thing we&apos;re building. For now, the current drop
-          above is everything we&apos;ve got in stock.
+          Browse the full catalog, filter by category, size, and price, and
+          message us the piece and your size when you find the one.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/shop"
+            data-tour="catalog-shop-link"
             className="clip-ticket inline-flex items-center gap-2 bg-cloud px-7 py-3.5 font-tag text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:-translate-y-0.5"
           >
             Shop the drop
