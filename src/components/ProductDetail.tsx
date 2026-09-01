@@ -80,6 +80,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   const tiltRef = useRef<HTMLDivElement>(null);
   const [tiltTransform, setTiltTransform] = useState(TILT_RESET);
   const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
   const shareMode = useWhatsAppShareMode();
 
   function handleTiltMove(e: React.PointerEvent<HTMLDivElement>) {
@@ -114,14 +115,21 @@ export default function ProductDetail({ product }: { product: Product }) {
       : product.images[0];
 
   async function handleOrderClick() {
-    const result = await shareProductToWhatsApp({
-      text: whatsappMessage,
-      whatsappHref,
-      imageUrl: shareImageUrl,
-    });
-    if (result.imageCopiedToClipboard) {
-      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
-      setTimeout(() => setCaptionNote(null), 6000);
+    setSending(true);
+    try {
+      const result = await shareProductToWhatsApp({
+        text: whatsappMessage,
+        whatsappHref,
+        imageUrl: shareImageUrl,
+      });
+      if (result.imageCopiedToClipboard) {
+        setCaptionNote(
+          "Photo copied — paste it into the chat (Ctrl+V / Cmd+V)."
+        );
+        setTimeout(() => setCaptionNote(null), 6000);
+      }
+    } finally {
+      setSending(false);
     }
   }
 
@@ -305,14 +313,17 @@ export default function ProductDetail({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleOrderClick}
-          className="clip-ticket mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-orange-light to-orange px-7 py-3.5 font-tag text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:-translate-y-0.5"
+          disabled={sending}
+          className="clip-ticket mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-orange-light to-orange px-7 py-3.5 font-tag text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:-translate-y-0.5 disabled:opacity-70"
         >
           <WhatsAppIcon className="h-4 w-4" />
-          {product.status === "sold-out"
-            ? "Ask about a restock"
-            : product.status === "coming-soon"
-              ? "Ask to be notified"
-              : "Order via WhatsApp"}
+          {sending
+            ? "Opening…"
+            : product.status === "sold-out"
+              ? "Ask about a restock"
+              : product.status === "coming-soon"
+                ? "Ask to be notified"
+                : "Order via WhatsApp"}
         </button>
         {captionNote ? (
           <p role="status" className="mt-2 font-body text-xs text-ink/60">

@@ -40,18 +40,26 @@ export default function ShopProductCard({ product }: { product: Product }) {
   const whatsappMessage = `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`;
   const whatsappHref = buildWhatsAppLink(whatsappMessage);
   const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
   const shareMode = useWhatsAppShareMode();
   const hasRealPhoto = !hasOnlyPlaceholderPhoto(product);
 
   async function handleOrderClick() {
-    const result = await shareProductToWhatsApp({
-      text: whatsappMessage,
-      whatsappHref,
-      imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
-    });
-    if (result.imageCopiedToClipboard) {
-      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
-      setTimeout(() => setCaptionNote(null), 6000);
+    setSending(true);
+    try {
+      const result = await shareProductToWhatsApp({
+        text: whatsappMessage,
+        whatsappHref,
+        imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
+      });
+      if (result.imageCopiedToClipboard) {
+        setCaptionNote(
+          "Photo copied — paste it into the chat (Ctrl+V / Cmd+V)."
+        );
+        setTimeout(() => setCaptionNote(null), 6000);
+      }
+    } finally {
+      setSending(false);
     }
   }
   // A video-only product (no real photos) plays its clip right in the
@@ -135,10 +143,15 @@ export default function ShopProductCard({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleOrderClick}
-          className="inline-flex items-center gap-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep"
+          disabled={sending}
+          className="inline-flex items-center gap-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep disabled:opacity-60"
         >
           <WhatsAppIcon className="h-4 w-4 text-teal-deep" />
-          {soldOut ? "Ask about a restock" : "Ask on WhatsApp"}
+          {sending
+            ? "Opening…"
+            : soldOut
+              ? "Ask about a restock"
+              : "Ask on WhatsApp"}
         </button>
         {captionNote ? (
           <p role="status" className="mt-1 font-body text-xs text-ink/50">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getAdminUser } from "@/lib/supabase/auth";
 import { logout } from "@/app/admin/actions";
+import FormSubmitButton from "@/components/admin/FormSubmitButton";
 
 export default async function AdminDashboardLayout({
   children,
@@ -43,12 +44,9 @@ export default async function AdminDashboardLayout({
         <div className="flex items-center justify-between gap-4 sm:justify-end">
           <span className="truncate text-sm text-cloud/60">{user.email}</span>
           <form action={logout}>
-            <button
-              type="submit"
-              className="shrink-0 rounded-md border border-cloud/30 px-3 py-1.5 text-sm text-cloud hover:bg-cloud/10"
-            >
+            <FormSubmitButton className="shrink-0 rounded-md border border-cloud/30 px-3 py-1.5 text-sm text-cloud hover:bg-cloud/10">
               Log out
-            </button>
+            </FormSubmitButton>
           </form>
         </div>
       </header>

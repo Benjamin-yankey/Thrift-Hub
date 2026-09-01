@@ -47,18 +47,26 @@ export default function ProductCard({
     product.videoUrl && hasOnlyPlaceholderPhoto(product)
   );
   const [captionNote, setCaptionNote] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
   const shareMode = useWhatsAppShareMode();
   const hasRealPhoto = !hasOnlyPlaceholderPhoto(product);
 
   async function handleOrderClick() {
-    const result = await shareProductToWhatsApp({
-      text: whatsappMessage,
-      whatsappHref,
-      imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
-    });
-    if (result.imageCopiedToClipboard) {
-      setCaptionNote("Photo copied — paste it into the chat (Ctrl+V / Cmd+V).");
-      setTimeout(() => setCaptionNote(null), 6000);
+    setSending(true);
+    try {
+      const result = await shareProductToWhatsApp({
+        text: whatsappMessage,
+        whatsappHref,
+        imageUrl: hasOnlyPlaceholderPhoto(product) ? null : product.images[0],
+      });
+      if (result.imageCopiedToClipboard) {
+        setCaptionNote(
+          "Photo copied — paste it into the chat (Ctrl+V / Cmd+V)."
+        );
+        setTimeout(() => setCaptionNote(null), 6000);
+      }
+    } finally {
+      setSending(false);
     }
   }
 
@@ -139,10 +147,15 @@ export default function ProductCard({
         <button
           type="button"
           onClick={handleOrderClick}
-          className="mt-auto inline-flex items-center gap-2 pt-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep"
+          disabled={sending}
+          className="mt-auto inline-flex items-center gap-2 pt-2 font-tag text-[13px] font-bold uppercase tracking-wide text-teal-deep transition-colors hover:text-orange-deep disabled:opacity-60"
         >
           <WhatsAppIcon className="h-4 w-4 text-teal-deep" />
-          {soldOut ? "Ask about a restock" : "Ask on WhatsApp"}
+          {sending
+            ? "Opening…"
+            : soldOut
+              ? "Ask about a restock"
+              : "Ask on WhatsApp"}
         </button>
         {captionNote ? (
           <p role="status" className="font-body text-xs text-ink/50">

@@ -9,6 +9,7 @@ import {
   setFeatured,
 } from "@/app/admin/actions";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
+import FormSubmitButton from "@/components/admin/FormSubmitButton";
 
 export const dynamic = "force-dynamic";
 
@@ -99,8 +100,7 @@ export default async function AdminProductsPage() {
                     !product.featured
                   )}
                 >
-                  <button
-                    type="submit"
+                  <FormSubmitButton
                     className={`rounded-full px-2.5 py-1 text-xs font-medium ${
                       product.featured
                         ? "bg-teal text-ink"
@@ -108,31 +108,29 @@ export default async function AdminProductsPage() {
                     }`}
                   >
                     {product.featured ? "Featured" : "Not featured"}
-                  </button>
+                  </FormSubmitButton>
                 </form>
               </div>
 
               <div className="mt-3 flex items-center justify-between border-t border-paper-line pt-3">
                 <div className="flex items-center gap-1">
                   <form action={moveProduct.bind(null, product.id, "up")}>
-                    <button
-                      type="submit"
+                    <FormSubmitButton
                       disabled={index === 0}
                       aria-label="Move up"
                       className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
                     >
                       ↑
-                    </button>
+                    </FormSubmitButton>
                   </form>
                   <form action={moveProduct.bind(null, product.id, "down")}>
-                    <button
-                      type="submit"
+                    <FormSubmitButton
                       disabled={index === products.length - 1}
                       aria-label="Move down"
                       className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
                     >
                       ↓
-                    </button>
+                    </FormSubmitButton>
                   </form>
                   <span className="ml-1 text-xs text-ink/40">
                     {product.sort_order}
@@ -180,26 +178,24 @@ export default async function AdminProductsPage() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
                       <form action={moveProduct.bind(null, product.id, "up")}>
-                        <button
-                          type="submit"
+                        <FormSubmitButton
                           disabled={index === 0}
                           aria-label="Move up"
                           className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
                         >
                           ↑
-                        </button>
+                        </FormSubmitButton>
                       </form>
                       <form
                         action={moveProduct.bind(null, product.id, "down")}
                       >
-                        <button
-                          type="submit"
+                        <FormSubmitButton
                           disabled={index === products.length - 1}
                           aria-label="Move down"
                           className="rounded border border-paper-line px-1.5 py-0.5 text-ink/70 hover:bg-paper disabled:opacity-30"
                         >
                           ↓
-                        </button>
+                        </FormSubmitButton>
                       </form>
                       <span className="ml-1 text-xs text-ink/40">
                         {product.sort_order}
@@ -244,8 +240,7 @@ export default async function AdminProductsPage() {
                         !product.featured
                       )}
                     >
-                      <button
-                        type="submit"
+                      <FormSubmitButton
                         className={`rounded-full px-2.5 py-1 text-xs font-medium ${
                           product.featured
                             ? "bg-teal text-ink"
@@ -253,7 +248,7 @@ export default async function AdminProductsPage() {
                         }`}
                       >
                         {product.featured ? "Featured" : "Not featured"}
-                      </button>
+                      </FormSubmitButton>
                     </form>
                   </td>
                   <td className="px-4 py-3">

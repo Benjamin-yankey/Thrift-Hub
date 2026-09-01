@@ -15,6 +15,18 @@ async function toPngBlob(blob: Blob): Promise<Blob> {
   });
 }
 
+function canShareFiles(): boolean {
+  if (typeof navigator === "undefined" || !navigator.share || !navigator.canShare) {
+    return false;
+  }
+  try {
+    const probe = new File(["x"], "probe.png", { type: "image/png" });
+    return navigator.canShare({ files: [probe] });
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Which of the two `shareProductToWhatsApp` paths this browser will
  * actually take for an image order — used purely to word the "here's what
@@ -25,15 +37,7 @@ async function toPngBlob(blob: Blob): Promise<Blob> {
  * this without risking a wrong guess on tablets, foldables, etc.
  */
 export function whatsAppShareMode(): "share" | "clipboard" {
-  if (typeof navigator === "undefined" || !navigator.share || !navigator.canShare) {
-    return "clipboard";
-  }
-  try {
-    const probe = new File(["x"], "probe.png", { type: "image/png" });
-    return navigator.canShare({ files: [probe] }) ? "share" : "clipboard";
-  } catch {
-    return "clipboard";
-  }
+  return canShareFiles() ? "share" : "clipboard";
 }
 
 export type ShareOutcome = {
@@ -52,10 +56,14 @@ export type ShareOutcome = {
  *
  * - Mobile with file-sharing support: hand WhatsApp the actual photo
  *   through the native share sheet, text and image together in one share.
- * - Everywhere else (desktop browsers, mainly): there's no share-sheet path
- *   at all, so this copies the photo to the clipboard instead — WhatsApp
- *   Web/Desktop both accept a pasted image straight into the chat — and
- *   opens the chat with the text pre-filled, ready for that one paste.
+ *   This path unavoidably waits on fetching the photo first — Web Share
+ *   needs the file in hand before it can share it.
+ * - Everywhere else (desktop browsers, mainly): opens WhatsApp immediately
+ *   — before fetching anything — rather than making the click sit there
+ *   waiting through a network fetch and an image re-encode with nothing
+ *   visibly happening. The photo then gets copied to the clipboard in the
+ *   background (WhatsApp Web/Desktop both accept a pasted image straight
+ *   into the chat), landing a moment after the chat's already open.
  */
 export async function shareProductToWhatsApp({
   text,
@@ -66,52 +74,48 @@ export async function shareProductToWhatsApp({
   whatsappHref: string;
   imageUrl?: string | null;
 }): Promise<ShareOutcome> {
-  let imageBlob: Blob | null = null;
-  if (imageUrl) {
+  if (imageUrl && canShareFiles()) {
     try {
       const response = await fetch(imageUrl);
-      imageBlob = await response.blob();
-    } catch {
-      // Couldn't fetch the photo — proceed text-only below.
+      const blob = await response.blob();
+      const ext = blob.type.split("/")[1]?.split("+")[0] || "jpg";
+      const file = new File([blob], `product.${ext}`, { type: blob.type });
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ text, files: [file] });
+        return { imageCopiedToClipboard: false };
+      }
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        return { imageCopiedToClipboard: false };
+      }
+      // Fetch failed, or share failed for some other reason — fall through
+      // to the immediate-open path below rather than leaving the click
+      // hanging.
     }
   }
 
-  if (imageBlob && typeof navigator !== "undefined" && navigator.share) {
-    const ext = imageBlob.type.split("/")[1]?.split("+")[0] || "jpg";
-    const file = new File([imageBlob], `product.${ext}`, {
-      type: imageBlob.type,
-    });
-    if (navigator.canShare?.({ files: [file] })) {
-      try {
-        await navigator.share({ text, files: [file] });
-        return { imageCopiedToClipboard: false };
-      } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") {
-          return { imageCopiedToClipboard: false };
-        }
-        // Share failed for some other reason — fall through to the link below.
-      }
-    }
-  }
+  window.open(whatsappHref, "_blank", "noopener,noreferrer");
 
   let imageCopiedToClipboard = false;
   if (
-    imageBlob &&
+    imageUrl &&
     typeof navigator !== "undefined" &&
     navigator.clipboard?.write &&
     typeof ClipboardItem !== "undefined"
   ) {
     try {
-      const pngBlob = await toPngBlob(imageBlob);
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const pngBlob = await toPngBlob(blob);
       await navigator.clipboard.write([
         new ClipboardItem({ "image/png": pngBlob }),
       ]);
       imageCopiedToClipboard = true;
     } catch {
-      // Clipboard image write unsupported or failed — proceed text-only.
+      // Fetch, decode, or clipboard write failed/unsupported — WhatsApp is
+      // already open with the text either way.
     }
   }
 
-  window.open(whatsappHref, "_blank", "noopener,noreferrer");
   return { imageCopiedToClipboard };
 }
