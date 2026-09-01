@@ -1,10 +1,7 @@
 /**
- * Shared brand + contact constants.
- *
- * Instagram is still a placeholder (see thrift-hup-system.md, section 6) —
- * swap it for the real handle when available. Every component below reads
- * from here rather than hardcoding a number, so updating any of these is a
- * one-line change.
+ * Shared brand + contact constants. Every component below reads from here
+ * rather than hardcoding a number, so updating any of these is a one-line
+ * change.
  */
 
 export const SITE = {
@@ -12,8 +9,6 @@ export const SITE = {
   whatsappNumber: "233241117911", // real Ghana number, wa.me format (no +, no spaces)
   whatsappDisplay: "+233 24 111 7911",
   email: "thethrifthubshop@gmail.com",
-  instagramHandle: "@thrifthub",
-  instagramUrl: "https://instagram.com/thrifthub",
   tiktokHandle: "@1thrift_hub",
   tiktokUrl: "https://www.tiktok.com/@1thrift_hub",
 };
