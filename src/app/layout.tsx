@@ -29,9 +29,9 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Thrift Hub — Secondhand. First Pick.",
+  title: "Thrift Hub",
   description:
-    "Thrift Hub is a curated drop of reworked secondhand clothing. Browse the current drop and order pieces straight through WhatsApp — no cart, no checkout, just first pick.",
+    "Thrift Hub is a curated drop of reworked secondhand clothing. Browse the current drop and order pieces straight through WhatsApp no cart, no checkout, just first pick.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

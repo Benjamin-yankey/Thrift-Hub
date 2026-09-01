@@ -15,7 +15,7 @@ import { PlayIcon, WhatsAppIcon } from "./icons";
 const SHARE_MODE_HINT: Record<"share" | "clipboard", string> = {
   share: "Opens WhatsApp with this photo and message ready to send.",
   clipboard:
-    "Copies this photo + opens WhatsApp with your message — paste the photo in to send it.",
+    "Copies this photo + opens WhatsApp with your message paste the photo in to send it.",
 };
 
 // Text color per chip is picked for AA contrast against that fill, not
@@ -44,7 +44,7 @@ export default function ProductCard({
   const whatsappMessage = `Hi! I'm interested in the ${product.name} (size ${product.sizes[0]}). Is it still available?`;
   const whatsappHref = buildWhatsAppLink(whatsappMessage);
   const showVideoInCard = Boolean(
-    product.videoUrl && hasOnlyPlaceholderPhoto(product)
+    product.videoUrl && hasOnlyPlaceholderPhoto(product),
   );
   const [captionNote, setCaptionNote] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
@@ -61,7 +61,7 @@ export default function ProductCard({
       });
       if (result.imageCopiedToClipboard) {
         setCaptionNote(
-          "Photo copied — paste it into the chat (Ctrl+V / Cmd+V)."
+          "Photo copied — paste it into the chat (Ctrl+V / Cmd+V).",
         );
         setTimeout(() => setCaptionNote(null), 6000);
       }
@@ -95,7 +95,11 @@ export default function ProductCard({
             src={product.images[0]}
             alt={product.imageAlt}
             fill
-            sizes={featured ? "(min-width: 1024px) 640px, 90vw" : "(min-width: 1024px) 360px, 90vw"}
+            sizes={
+              featured
+                ? "(min-width: 1024px) 640px, 90vw"
+                : "(min-width: 1024px) 360px, 90vw"
+            }
             className="object-cover"
           />
         )}

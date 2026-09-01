@@ -23,11 +23,11 @@ export async function generateMetadata({
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return { title: "Product not found — Thrift Hub" };
+    return { title: "Product not found Thrift Hub" };
   }
 
   return {
-    title: `${product.name} — Thrift Hub`,
+    title: `${product.name}  Thrift Hub`,
     description: product.description || `${product.name}, from Thrift Hub.`,
   };
 }

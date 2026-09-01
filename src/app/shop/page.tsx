@@ -10,7 +10,7 @@ import { buildWhatsAppLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Shop — Thrift Hub",
   description:
-    "Browse the full Thrift Hub catalog — every reworked secondhand piece we've got, filterable by category, size, and price.",
+    "Browse the full Thrift Hub catalog  every reworked secondhand piece we've got, filterable by category, size, and price.",
 };
 
 export default async function ShopPage() {
@@ -31,15 +31,15 @@ export default async function ShopPage() {
               </h1>
               <p className="mt-4 font-body text-base leading-relaxed text-ink/70">
                 Filter by category, size, or price to find your next piece.
-                Everything here is one of one — message us on WhatsApp
-                before it&apos;s gone.
+                Everything here is one of one message us on WhatsApp before
+                it&apos;s gone.
               </p>
             </Reveal>
 
             <div className="mt-12">
               {products.length === 0 ? (
                 <p className="font-body text-base text-ink/60">
-                  Nothing&apos;s in the catalog yet — check back soon.
+                  Nothing&apos;s in the catalog yet check back soon.
                 </p>
               ) : (
                 <ShopGrid products={products} />
@@ -61,7 +61,7 @@ export default async function ShopPage() {
               </p>
               <a
                 href={buildWhatsAppLink(
-                  "Hi! I couldn't find what I was looking for on the shop page — can you help?"
+                  "Hi! I couldn't find what I was looking for on the shop page can you help?",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"

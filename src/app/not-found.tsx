@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { ArrowIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Page not found — Thrift Hub",
+  title: "Page not found  Thrift Hub",
   description: "The page you're looking for doesn't exist or has moved.",
 };
 

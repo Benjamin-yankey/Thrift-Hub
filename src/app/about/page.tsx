@@ -8,9 +8,9 @@ import { WhatsAppIcon, ArrowIcon } from "@/components/icons";
 import { buildWhatsAppLink } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About — Thrift Hub",
+  title: "About  Thrift Hub",
   description:
-    "Thrift Hub sources secondhand clothing from Kantamanto in Accra, reworks it by hand, and drops it in small batches — no two pieces alike.",
+    "Thrift Hub sources secondhand clothing from Kantamanto in Accra, reworks it by hand, and drops it in small batches no two pieces alike.",
 };
 
 export default function AboutPage() {
@@ -84,7 +84,7 @@ export default function AboutPage() {
               <div className="mt-6 space-y-4 font-body text-base leading-relaxed text-ink/75 sm:text-lg">
                 <p>
                   The market we source from moves more secondhand clothing in a
-                  week than most warehouses see in a year — bales arrive sealed,
+                  week than most warehouses see in a year bales arrive sealed,
                   and nobody knows exactly what&apos;s inside until they&apos;re
                   cut open. We go in person, dig through bale after bale by
                   hand, and pull out the pieces worth saving: the ones with good
@@ -92,8 +92,8 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Most of what we find never makes a drop. What does has already
-                  survived one life somewhere else — someone else&apos;s closet,
-                  someone else&apos;s decade — before it ever reaches our bench.
+                  survived one life somewhere else someone else&apos;s closet,
+                  someone else&apos;s decade before it ever reaches our bench.
                 </p>
               </div>
             </Reveal>
@@ -112,15 +112,15 @@ export default function AboutPage() {
               </h2>
               <div className="mt-6 space-y-4 font-body text-base leading-relaxed text-ink/75 sm:text-lg">
                 <p>
-                  Every piece reaches you exactly as we found it. Nothing
-                  added, nothing changed — no needle, no patch, no shortcut.
-                  If it made the cut, it was already right.
+                  Every piece reaches you exactly as we found it. Nothing added,
+                  nothing changed no needle, no patch, no shortcut. If it made
+                  the cut, it was already right.
                 </p>
                 <p>
                   We&apos;re not hiding where a piece has been, and we&apos;re
-                  not touching it either. The fade stays true to whoever wore
-                  it before. That&apos;s the whole point — not new, not
-                  altered, just already perfect, exactly as it came to us.
+                  not touching it either. The fade stays true to whoever wore it
+                  before. That&apos;s the whole point not new, not altered, just
+                  already perfect, exactly as it came to us.
                 </p>
               </div>
               <div className="stitch mt-8 text-ink/15" aria-hidden="true" />
@@ -156,12 +156,12 @@ export default function AboutPage() {
               Small on purpose. Gone on purpose.
             </h2>
             <p className="mx-auto mt-5 max-w-xl font-body text-base leading-relaxed text-cloud/75 sm:text-lg">
-              We could scale up, source more, move faster. We&apos;d rather
-              keep drops small and sizing one piece deep, because that&apos;s
-              what makes each find worth finding. When a piece sells, we
-              don&apos;t restock the exact same jacket — we&apos;re out looking
-              for the next one. That&apos;s the whole model: no cart, no
-              warehouse, just us and whatever the next bale hands us.
+              We could scale up, source more, move faster. We&apos;d rather keep
+              drops small and sizing one piece deep, because that&apos;s what
+              makes each find worth finding. When a piece sells, we don&apos;t
+              restock the exact same jacket we&apos;re out looking for the next
+              one. That&apos;s the whole model: no cart, no warehouse, just us
+              and whatever the next bale hands us.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
               <Link

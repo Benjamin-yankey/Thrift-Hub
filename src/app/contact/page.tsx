@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const whatsappHref = buildWhatsAppLink(
-    "Hi! I'd like to get in touch with Thrift Hub."
+    "Hi! I'd like to get in touch with Thrift Hub.",
   );
 
   return (
@@ -33,9 +33,9 @@ export default function ContactPage() {
                 or just say hi.
               </h1>
               <p className="mt-4 font-body text-base leading-relaxed text-ink/70">
-                For ordering a specific piece, message us on WhatsApp
-                straight from the product page — it&apos;s faster. For
-                everything else, drop us a line below.
+                For ordering a specific piece, message us on WhatsApp straight
+                from the product page it&apos;s faster. For everything else,
+                drop us a line below.
               </p>
             </Reveal>
 
@@ -87,8 +87,8 @@ export default function ContactPage() {
                 <div className="stitch mt-8 text-ink/15" aria-hidden="true" />
 
                 <p className="mt-6 font-body text-sm leading-relaxed text-ink/60">
-                  No cart, no checkout — every order is confirmed by hand
-                  over chat. Expect a reply within a day.
+                  No cart, no checkout every order is confirmed by hand over
+                  chat. Expect a reply within a day.
                 </p>
               </Reveal>
             </div>

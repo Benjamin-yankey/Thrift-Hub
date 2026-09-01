@@ -28,8 +28,8 @@ export default async function AdminMessagesPage() {
     <div>
       <h1 className="font-display text-3xl text-ink">Messages</h1>
       <p className="mt-2 text-sm text-ink/60">
-        Submissions from the /contact form. Read-only — reply to people
-        directly by email or WhatsApp.
+        Submissions from the /contact form. Read-only reply to people directly
+        by email or WhatsApp.
       </p>
 
       {messages.length === 0 ? (
