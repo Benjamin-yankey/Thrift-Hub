@@ -147,7 +147,7 @@ export default function SiteTour() {
           setStepIndex(0);
           setOpen(true);
         }
-      }, 800);
+      }, 400);
     }
 
     // IntroSplash decides whether to render itself via useSyncExternalStore,
@@ -184,15 +184,27 @@ export default function SiteTour() {
         if (!cancelled) setReady(true);
         return;
       }
-      const el = await waitForElement(step.target, 4000);
+      // A target that's going to appear is already in the DOM the instant
+      // this runs (Next serves fully-formed HTML; a client-side route
+      // transition adds at most a render tick), so this is a short grace
+      // window for that, not a real wait — not a multi-second hang for a
+      // step whose target doesn't exist right now (e.g. Featured Drops or
+      // the shop grid when the catalog's empty).
+      const el = await waitForElement(step.target, 600);
       if (cancelled) return;
       if (!el) {
         setReady(true);
         return;
       }
       targetElRef.current = el;
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      // Instant, not "smooth" — globals.css sets `scroll-behavior: smooth`
+      // site-wide, which this explicit "instant" overrides. A smooth scroll
+      // would need an artificial wait afterward for the animation to
+      // finish before it's safe to measure the target's position; instant
+      // scrolling settles layout within a frame, so a single
+      // requestAnimationFrame is enough instead of a fixed guess.
+      el.scrollIntoView({ behavior: "instant", block: "center" });
+      await new Promise((resolve) => requestAnimationFrame(resolve));
       if (cancelled) return;
       setRect(el.getBoundingClientRect());
       setReady(true);
@@ -239,10 +251,18 @@ export default function SiteTour() {
       close();
       return;
     }
+    // Reset in the same batch as the step change, not left to the effect
+    // that runs after — otherwise React can commit one render with the new
+    // step's title alongside the previous step's now-stale spotlight
+    // position before the effect gets a chance to clear it.
+    setReady(false);
+    setRect(null);
     setStepIndex((i) => i + 1);
   }
 
   function back() {
+    setReady(false);
+    setRect(null);
     setStepIndex((i) => Math.max(0, i - 1));
   }
 
