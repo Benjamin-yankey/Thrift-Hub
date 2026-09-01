@@ -166,6 +166,7 @@ export async function createProduct(
 
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/shop");
   redirect("/admin");
 }
 
@@ -190,7 +191,7 @@ export async function updateProduct(
 
   const { data: existing } = await supabase
     .from("products")
-    .select("images, video_url")
+    .select("slug, images, video_url")
     .eq("id", id)
     .single();
 
@@ -234,6 +235,11 @@ export async function updateProduct(
 
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/shop");
+  revalidatePath(`/shop/${data.slug}`);
+  if (existing?.slug && existing.slug !== data.slug) {
+    revalidatePath(`/shop/${existing.slug}`);
+  }
   redirect("/admin");
 }
 
@@ -243,7 +249,7 @@ export async function deleteProduct(id: string) {
 
   const { data: existing } = await supabase
     .from("products")
-    .select("images, video_url")
+    .select("slug, images, video_url")
     .eq("id", id)
     .single();
 
@@ -257,6 +263,10 @@ export async function deleteProduct(id: string) {
 
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/shop");
+  if (existing?.slug) {
+    revalidatePath(`/shop/${existing.slug}`);
+  }
 }
 
 export async function moveProduct(id: string, direction: "up" | "down") {
@@ -284,6 +294,7 @@ export async function moveProduct(id: string, direction: "up" | "down") {
 
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/shop");
 }
 
 export async function setFeatured(id: string, featured: boolean) {
@@ -296,6 +307,7 @@ export async function setFeatured(id: string, featured: boolean) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin");
   revalidatePath("/");
+  revalidatePath("/shop");
 }
 
 export async function logout() {

@@ -13,10 +13,6 @@ export const metadata: Metadata = {
     "Browse the full Thrift Hub catalog — every reworked secondhand piece we've got, filterable by category, size, and price.",
 };
 
-// Same no-cache posture as the homepage's Featured Drops: an admin publish
-// should show up on the next load without a redeploy.
-export const revalidate = 0;
-
 export default async function ShopPage() {
   const products = await getAllProducts();
 

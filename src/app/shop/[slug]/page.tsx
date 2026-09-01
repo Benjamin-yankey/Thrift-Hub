@@ -3,9 +3,16 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ProductDetail from "@/components/ProductDetail";
-import { getProductBySlug } from "@/lib/products";
+import { getAllProducts, getProductBySlug } from "@/lib/products";
 
-export const revalidate = 0;
+// Pre-renders every known product page at build time so a visit is served
+// from cache instead of hitting Supabase live. A product added afterward
+// still works — `dynamicParams` defaults to true, so its first visit
+// renders on demand and gets cached from then on.
+export async function generateStaticParams() {
+  const products = await getAllProducts();
+  return products.map((product) => ({ slug: product.id }));
+}
 
 export async function generateMetadata({
   params,

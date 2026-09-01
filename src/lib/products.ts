@@ -3,11 +3,13 @@
  *
  * This is the "thin server-side data-fetching layer" called from
  * FeaturedDrops (a Server Component) instead of importing the old static
- * `PRODUCTS` array. It reads through the anon-key server client, which is
- * exactly what the `products` table's RLS policy allows (public SELECT) —
- * no service-role key involved for public reads.
+ * `PRODUCTS` array. It reads through the cookie-free anon-key client (see
+ * `@/lib/supabase/public`), which is exactly what the `products` table's
+ * RLS policy allows (public SELECT) — no service-role key involved for
+ * public reads, and no dependency on the visitor's session either, so these
+ * pages can actually be cached instead of hitting Supabase on every request.
  */
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { PLACEHOLDER_IMAGE, type Product, type ProductStatus } from "@/lib/site";
 
 /** Row shape as it comes back from `products` (see supabase/schema.sql). */
@@ -72,12 +74,12 @@ function toProduct(row: ProductRow): Product {
 
 /**
  * Products for the homepage's Featured Drops section: `featured = true`,
- * ordered the way the admin arranged them. No caching (see the `revalidate`
- * export on the page that renders this) so a publish in /admin shows up on
- * the next load without a redeploy.
+ * ordered the way the admin arranged them. Cached like the rest of the
+ * storefront — an admin publish still shows up on the next load without a
+ * redeploy, via the `revalidatePath()` calls in `@/app/admin/actions`.
  */
 export async function getFeaturedProducts(): Promise<Product[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_COLUMNS)
@@ -99,7 +101,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
  * filter/sort controls then re-order client-side on top of this.
  */
 export async function getAllProducts(): Promise<Product[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_COLUMNS)
@@ -118,7 +120,7 @@ export async function getAllProducts(): Promise<Product[]> {
  * unknown slug so the page can call `notFound()`.
  */
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_COLUMNS)
