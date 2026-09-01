@@ -3,7 +3,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
-import { WhatsAppIcon, InstagramIcon, TikTokIcon, MailIcon } from "@/components/icons";
+import { WhatsAppIcon, TikTokIcon, MailIcon } from "@/components/icons";
 import { SITE, buildWhatsAppLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -69,17 +69,6 @@ export default function ContactPage() {
                     >
                       <MailIcon className="h-5 w-5 text-teal-deep" />
                       {SITE.email}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={SITE.instagramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 font-body text-base text-ink/80 transition-colors hover:text-orange-deep"
-                    >
-                      <InstagramIcon className="h-5 w-5 text-teal-deep" />
-                      {SITE.instagramHandle}
                     </a>
                   </li>
                   <li>

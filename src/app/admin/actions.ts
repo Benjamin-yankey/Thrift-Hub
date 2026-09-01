@@ -25,10 +25,15 @@ const STATUSES: ProductStatus[] = [
   "coming-soon",
 ];
 
+export type ProductFormState = {
+  status: "idle" | "error";
+  message: string;
+};
+
 async function requireAdmin() {
   const user = await getAdminUser();
   if (!user) {
-    throw new Error("You must be signed in to do that.");
+    redirect("/admin/login");
   }
 }
 
@@ -104,9 +109,22 @@ function parseProductForm(formData: FormData) {
   };
 }
 
-export async function createProduct(formData: FormData) {
+export async function createProduct(
+  _prevState: ProductFormState,
+  formData: FormData
+): Promise<ProductFormState> {
   await requireAdmin();
-  const data = parseProductForm(formData);
+
+  let data;
+  try {
+    data = parseProductForm(formData);
+  } catch (err) {
+    return {
+      status: "error",
+      message: err instanceof Error ? err.message : "Invalid form data.",
+    };
+  }
+
   const supabase = createAdminClient();
 
   let sortOrder = data.sortOrder;
@@ -137,16 +155,37 @@ export async function createProduct(formData: FormData) {
     sort_order: sortOrder,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    return {
+      status: "error",
+      message: error.code === "23505"
+        ? "That slug is already in use by another product."
+        : error.message,
+    };
+  }
 
   revalidatePath("/admin");
   revalidatePath("/");
   redirect("/admin");
 }
 
-export async function updateProduct(id: string, formData: FormData) {
+export async function updateProduct(
+  id: string,
+  _prevState: ProductFormState,
+  formData: FormData
+): Promise<ProductFormState> {
   await requireAdmin();
-  const data = parseProductForm(formData);
+
+  let data;
+  try {
+    data = parseProductForm(formData);
+  } catch (err) {
+    return {
+      status: "error",
+      message: err instanceof Error ? err.message : "Invalid form data.",
+    };
+  }
+
   const supabase = createAdminClient();
 
   const { data: existing } = await supabase
@@ -184,7 +223,14 @@ export async function updateProduct(id: string, formData: FormData) {
     })
     .eq("id", id);
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    return {
+      status: "error",
+      message: error.code === "23505"
+        ? "That slug is already in use by another product."
+        : error.message,
+    };
+  }
 
   revalidatePath("/admin");
   revalidatePath("/");
