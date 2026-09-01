@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Space_Mono, Work_Sans } from "next/font/google";
+import SiteTour from "@/components/SiteTour";
+import FaqBot from "@/components/FaqBot";
 import "./globals.css";
 
 // Heavy, condensed, poster-voiced — carries the "stat"/statement headlines
@@ -40,6 +42,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         {children}
+        <SiteTour />
+        <FaqBot />
       </body>
     </html>
   );
